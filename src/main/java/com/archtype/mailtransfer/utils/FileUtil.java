@@ -32,7 +32,7 @@ public class FileUtil {
             }
             return content.toString();
         } catch (IOException e) {
-            LOGGER.error("Read /config.json Failed！");
+            LOGGER.error("Read config/config.json Failed！");
             e.printStackTrace();
             return null;
         }
@@ -62,9 +62,9 @@ public class FileUtil {
         if (file.isDirectory()) {
             File[] files = file.listFiles();
             File[] copyFiles = files;
-            int var6 = files.length;
+            int length = files.length;
 
-            for (int i = 0; i < var6; ++i) {
+            for (int i = 0; i < length; ++i) {
                 File fileIndex = copyFiles != null ? copyFiles[i] : null;
                 if (fileIndex != null && fileIndex.isDirectory()) {
                     this.getFiles(fileIndex.getPath());

@@ -10,6 +10,7 @@ import com.archtype.mailtransfer.utils.FileUtil;
 import com.archtype.mailtransfer.utils.MailUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.List;
  * @author: Think
  * @date: 2019/9/15
  */
+@Service
 public class MailSendImpl implements MailSendService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MailSendImpl.class);
@@ -25,7 +27,7 @@ public class MailSendImpl implements MailSendService {
     @Override
     public void mailSend() {
         FileUtil readUtil = new FileUtil();
-        String content = readUtil.readFile("config/config.json");
+        String content = readUtil.readFile("/config/config.json");
         LOGGER.info("The content is {}.", content);
         JSONObject jsonObject = JSON.parseObject(content);
         MailFromAddr mailFromAddr = readUtil.readFromAddr(jsonObject);
