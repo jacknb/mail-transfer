@@ -1,16 +1,16 @@
 {
   "mailFromInfo": {
     //发件人邮箱账号
-    "username": "xxxx@163.com",
+    "username": "xxxx@qq.com",
     //发件人邮箱密码，也可能是第三方授权码
-    "password": "xxxx",
+    "password": "xxxxxx",
     //发件人邮箱的SMTP服务器地址
-    "host": "smtp.163.com"
+    "host": "smtp.qq.com"
   },
   "mailToInfo": {
     //收件人地址
-    "to": "xxxx@qq.com"
+    "to": "xxx@qq.com"
   },
   //需要发送文件所在上一级目录的绝对路径（带上转义符号），会邮件发送该路径下的所有文件
-  "filesParentPath": "E:\\xxx\\xxxx"
+  "filesParentPath": "E:\\test"
 }
