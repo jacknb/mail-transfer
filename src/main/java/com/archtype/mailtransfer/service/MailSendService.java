@@ -1,4 +1,4 @@
-package com.archtype.mailtransfer.server;
+package com.archtype.mailtransfer.service;
 
 import org.springframework.stereotype.Service;
 
@@ -7,7 +7,12 @@ import org.springframework.stereotype.Service;
  * @date: 2019/9/15
  */
 @Service
-public interface MailSendServer {
+public interface MailSendService {
 
+    /**
+     * send mail
+     *
+     * @throws Exception
+     */
     void mailSend() throws Exception;
 }

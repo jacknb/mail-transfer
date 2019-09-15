@@ -23,18 +23,17 @@ public class FileUtil {
     public String readFile(String filePath) {
         InputStream input = this.getClass().getResourceAsStream(filePath);
         byte[] b = new byte[4096];
-        StringBuffer content = new StringBuffer();
+        StringBuilder content = new StringBuilder();
 
         try {
             int n;
-            while((n = input.read(b)) != -1) {
+            while ((n = input.read(b)) != -1) {
                 content.append(new String(b, 0, n));
             }
-
             return content.toString();
-        } catch (IOException var7) {
-            System.out.println("Read /config.json Failed！");
-            var7.printStackTrace();
+        } catch (IOException e) {
+            LOGGER.error("Read /config.json Failed！");
+            e.printStackTrace();
             return null;
         }
     }
@@ -44,45 +43,41 @@ public class FileUtil {
         String username = jsonObject.getString("username");
         String password = jsonObject.getString("password");
         String host = jsonObject.getString("host");
-        MailFromAddr mailFromAddr = new MailFromAddr(username,password,host);
-        return mailFromAddr;
+        return new MailFromAddr(username, password, host);
     }
 
     public MailToAddr readToAddr(JSONObject json) {
         JSONObject jsonObject = json.getJSONObject("mailToInfo");
         String to = jsonObject.getString("to");
-        MailToAddr mailToAddr = new MailToAddr(to);
-        return mailToAddr;
+        return new MailToAddr(to);
     }
 
     public String readFilesPath(JSONObject json) {
-        String filesParentPath = json.getString("filesParentPath");
-        return filesParentPath;
+        return json.getString("filesParentPath");
     }
 
-    public List<File> getFiles(String path) throws Exception {
-        List<File> fileList = new ArrayList();
+    public List<File> getFiles(String path) {
+        List<File> fileList = new ArrayList<>();
         File file = new File(path);
         if (file.isDirectory()) {
             File[] files = file.listFiles();
-            File[] var5 = files;
+            File[] copyFiles = files;
             int var6 = files.length;
 
-            for(int var7 = 0; var7 < var6; ++var7) {
-                File fileIndex = var5[var7];
-                if (fileIndex.isDirectory()) {
+            for (int i = 0; i < var6; ++i) {
+                File fileIndex = copyFiles != null ? copyFiles[i] : null;
+                if (fileIndex != null && fileIndex.isDirectory()) {
                     this.getFiles(fileIndex.getPath());
                 } else {
                     fileList.add(fileIndex);
                 }
             }
         }
-
         return fileList;
     }
 
     public List<String> getFilesAbsolutePath(List<File> files) {
-        List<String> filesAbsolutePath = new ArrayList();
+        List<String> filesAbsolutePath = new ArrayList<>();
         files.stream().forEach((file) -> {
             filesAbsolutePath.add(file.getAbsolutePath());
         });
